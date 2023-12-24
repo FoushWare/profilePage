@@ -2,7 +2,7 @@ import NavLinks from "@/modules/shared/components/atoms/NavLinks/NavLinks";
 import NavSearch from "@/modules/shared/components/atoms/NavSearch/NavSearch";
 import NavLogo from "@/modules/shared/components/atoms/logo/NavLogo";
 import NotificationIcon from "@/modules/shared/components/atoms/NotificationIcon/NotificationIcon";
-import VerticalDivider from "@/modules/shared/components/atoms/VerticalDivider/VerticalDivider";
+import VerticalDivider from "@/modules/shared/components/atoms/Divider/VerticalDivider/VerticalDivider";
 import CircleAvatar from "@/modules/shared/components/atoms/Avatar/circleAvatar";
 import ActionButton from "@/modules/shared/components/atoms/Buttons/ActionButton";
 import LanguageSwitcher from "@/modules/shared/components/atoms/LanguageSwitcher/LanguageSwitcher";
@@ -20,7 +20,7 @@ const Navigation = ({
 }: DesktopNavigationProps) => {
   console.log("openDropdown", openDropdown);
   return (
-    <nav className="relative  w-full bg-white text-black border-b-2 p-4">
+    <nav className="relative  w-full bg-white text-black p-1 pb-0">
       <div className="container mx-auto px-0 md:px-4 flex items-center justify-between">
         {/* Left Navbar */}
         <div className="flex items-center">
