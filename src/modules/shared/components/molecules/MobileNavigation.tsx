@@ -1,0 +1,24 @@
+import React from "react";
+import NavLinks from "@/modules/shared/components/atoms/NavLinks/NavLinks";
+import ActionButton from "@/modules/shared/components/atoms/Buttons/ActionButton";
+import Box from "@/modules/shared/components/atoms/Box/Box";
+import LanguageSwitcher from "../atoms/LanguageSwitcher/LanguageSwitcher";
+
+interface MobileNavProps {
+  isMenuOpen: boolean;
+}
+
+const MobileNav = ({ isMenuOpen }: MobileNavProps) => {
+  if (!isMenuOpen) return null;
+  return (
+    <header className="absolute z-10 bg-white text-black w-full md:hidden pb-4">
+      <NavLinks />
+      <Box classes="mt-4 mx-4 ">
+        <ActionButton text="Add New Product" Icon="/icons/add-circle.svg" />
+      </Box>
+      <LanguageSwitcher classes="mt-4 mx-4" />
+    </header>
+  );
+};
+
+export default MobileNav;

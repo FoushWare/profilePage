@@ -1,16 +1,22 @@
-const Navigation = () => {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <a>Home</a>
-        </li>
+import { useState } from "react";
+import DesktopNavigation from "@/modules/shared/components/molecules/DesktopNavigation";
+import MobileNavigation from "@/modules/shared/components/molecules/MobileNavigation";
 
-        <li>
-          <a>About</a>
-        </li>
-      </ul>
-    </nav>
+const Navigation = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <>
+      <DesktopNavigation
+        isMenuOpen={isMenuOpen}
+        handleMenuClick={handleMenuClick}
+      />
+      <MobileNavigation isMenuOpen={isMenuOpen} />
+    </>
   );
 };
 
