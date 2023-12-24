@@ -5,11 +5,14 @@ import Box from "@/modules/shared/components/atoms/Box/Box";
 import LanguageSwitcher from "../atoms/LanguageSwitcher/LanguageSwitcher";
 
 interface MobileNavProps {
-  isMenuOpen: boolean;
+  openDropdown: "menu" | "notification" | "profile" | null;
+  handleDropdownClick: (
+    dropdown: "menu" | "notification" | "profile" | null
+  ) => void;
 }
 
-const MobileNav = ({ isMenuOpen }: MobileNavProps) => {
-  if (!isMenuOpen) return null;
+const MobileNav = ({ openDropdown }: MobileNavProps) => {
+  if (openDropdown !== "menu") return null;
   return (
     <header className="absolute z-10 bg-white text-black w-full md:hidden pb-4">
       <NavLinks />

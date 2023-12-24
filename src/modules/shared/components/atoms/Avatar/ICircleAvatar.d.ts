@@ -3,8 +3,10 @@ import type { ReactElement } from "react";
 declare namespace ICircleAvatar {
   export interface IProps {
     classes?: string;
-    isMenuOpen?: boolean;
-    handleMenuClick?: () => void;
+    handleDropdownClick?: (
+      dropdown: "menu" | "notification" | "profile" | null
+    ) => void;
+    openDropdown?: "menu" | "notification" | "profile" | null;
   }
 }
 

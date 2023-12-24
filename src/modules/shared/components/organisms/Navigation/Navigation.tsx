@@ -3,19 +3,30 @@ import DesktopNavigation from "@/modules/shared/components/molecules/DesktopNavi
 import MobileNavigation from "@/modules/shared/components/molecules/MobileNavigation";
 
 const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
+  // control priority which dropdown menu to show [menu Header, notification, profile]
+  const [openDropdown, setOpenDropdown] = useState<
+    "menu" | "notification" | "profile" | null
+  >(null);
+  const handleDropdownClick = (
+    dropdown: "menu" | "notification" | "profile" | null
+  ) => {
+    if (openDropdown === dropdown) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(dropdown);
+    }
   };
 
   return (
     <>
       <DesktopNavigation
-        isMenuOpen={isMenuOpen}
-        handleMenuClick={handleMenuClick}
+        openDropdown={openDropdown}
+        handleDropdownClick={handleDropdownClick}
       />
-      <MobileNavigation isMenuOpen={isMenuOpen} />
+      <MobileNavigation
+        openDropdown={openDropdown}
+        handleDropdownClick={handleDropdownClick}
+      />
     </>
   );
 };

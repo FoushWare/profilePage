@@ -1,4 +1,3 @@
-import { useState } from "react";
 import NavLinks from "@/modules/shared/components/atoms/NavLinks/NavLinks";
 import NavSearch from "@/modules/shared/components/atoms/NavSearch/NavSearch";
 import NavLogo from "@/modules/shared/components/atoms/logo/NavLogo";
@@ -10,23 +9,31 @@ import LanguageSwitcher from "@/modules/shared/components/atoms/LanguageSwitcher
 import { ReactSVG } from "react-svg";
 
 interface DesktopNavigationProps {
-  isMenuOpen: boolean;
-  handleMenuClick: () => void;
+  openDropdown: "menu" | "notification" | "profile" | null;
+  handleDropdownClick: (
+    dropdown: "menu" | "notification" | "profile" | null
+  ) => void;
 }
 const Navigation = ({
-  handleMenuClick,
-  isMenuOpen,
+  openDropdown,
+  handleDropdownClick,
 }: DesktopNavigationProps) => {
+  console.log("openDropdown", openDropdown);
   return (
     <nav className="relative  w-full bg-white text-black border-b-2 p-4">
       <div className="container mx-auto px-0 md:px-4 flex items-center justify-between">
         {/* Left Navbar */}
         <div className="flex items-center">
           <ReactSVG
-            src={isMenuOpen ? "/icons/close.svg" : "/icons/menu.svg"}
-            className="md:hidden mr-4 cursor-pointer"
-            onClick={handleMenuClick}
+            src={
+              openDropdown === "menu" ? "/icons/close.svg" : "/icons/menu.svg"
+            }
+            className="md:hidden  cursor-pointer"
+            onClick={() =>
+              handleDropdownClick(openDropdown === "menu" ? null : "menu")
+            }
           />
+
           <NavLogo />
           <NavLinks classes="hidden md:flex" />
         </div>
@@ -35,14 +42,14 @@ const Navigation = ({
           <NavSearch />
           <VerticalDivider classes="hidden md:block" />
           <NotificationIcon
-            handleMenuClick={handleMenuClick}
-            isMenuOpen={isMenuOpen}
+            handleDropdownClick={handleDropdownClick}
+            openDropdown={openDropdown}
           />
           <VerticalDivider classes="hidden md:block" />
           <CircleAvatar
             classes="mr-0 md:mr-6"
-            handleMenuClick={handleMenuClick}
-            isMenuOpen={isMenuOpen}
+            handleDropdownClick={handleDropdownClick}
+            openDropdown={openDropdown}
           />
           <ActionButton
             text="Add New Product"

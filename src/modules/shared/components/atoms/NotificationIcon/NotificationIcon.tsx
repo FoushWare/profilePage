@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
-interface NotificationIconProps {
-  handleMenuClick?: () => void;
-  isMenuOpen?: boolean;
-}
-const NotificationIcon = ({
-  handleMenuClick,
-  isMenuOpen,
-}: NotificationIconProps) => {
-  const [dropdownVisible, setDropdownVisible] = useState(false);
 
+interface NotificationIconProps {
+  handleDropdownClick: (
+    dropdown: "menu" | "notification" | "profile" | null
+  ) => void;
+  openDropdown?: "menu" | "notification" | "profile" | null;
+}
+
+const NotificationIcon = ({
+  handleDropdownClick,
+  openDropdown,
+}: NotificationIconProps) => {
   const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-    if (isMenuOpen && handleMenuClick) handleMenuClick();
+    handleDropdownClick(
+      openDropdown === "notification" ? null : "notification"
+    );
   };
 
   const notifications = [
@@ -28,11 +31,14 @@ const NotificationIcon = ({
         className="hover:cursor-pointer"
         onClick={toggleDropdown}
       />
-      {dropdownVisible && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
+      {openDropdown === "notification" && (
+        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg z-50">
           {notifications.map((notification) => (
-            <div key={notification.id} className="px-4 py-3">
-              <p className="text-sm leading-5">{notification.text}</p>
+            <div
+              key={notification.id}
+              className="px-4 py-3 text-sm leading-5 hover:bg-gray-100 hover:cursor-pointer"
+            >
+              {notification.text}
             </div>
           ))}
         </div>

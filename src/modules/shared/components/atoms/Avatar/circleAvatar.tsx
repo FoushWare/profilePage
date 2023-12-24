@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactSVG } from "react-svg";
 import { ICircleAvatar } from "./ICircleAvatar";
 import classNames from "classnames";
 
 const CircleAvatar = ({
   classes,
-  isMenuOpen,
-  handleMenuClick,
+  handleDropdownClick,
+  openDropdown,
 }: ICircleAvatar.IProps) => {
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-
   const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-    if (isMenuOpen && handleMenuClick) {
-      handleMenuClick();
-    }
+    if (handleDropdownClick)
+      handleDropdownClick(openDropdown === "profile" ? null : "profile");
   };
   const CircleAvatarClasses = classNames(classes);
 
@@ -25,7 +21,7 @@ const CircleAvatar = ({
         className="hover:cursor-pointer rounded-full"
         onClick={toggleDropdown}
       />
-      {dropdownVisible && (
+      {openDropdown === "profile" && (
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
           <div className="px-4 py-3">
             <p className="text-sm leading-5">Profile</p>
