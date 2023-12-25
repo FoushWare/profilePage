@@ -15,7 +15,7 @@ const SideBar = () => {
     { icon: "/icons/audience-metrics/rating.svg", count: 4.5, name: "Rating" },
   ];
   return (
-    <>
+    <div className="col-span-12 md:col-span-4">
       <ProfileInfoCard
         name="Hala Ahmed"
         avatarUrl="/images/avatar.svg"
@@ -26,7 +26,7 @@ const SideBar = () => {
         name="Hala Ahmed"
         qrValue="https://www.youtube.com/watch?v=7XUibDY0t9o"
       />
-    </>
+    </div>
   );
 };
 
