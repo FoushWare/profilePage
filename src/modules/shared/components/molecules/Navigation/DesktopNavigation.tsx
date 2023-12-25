@@ -1,6 +1,6 @@
 import NavLinks from "@/modules/shared/components/atoms/NavLinks/NavLinks";
 import NavSearch from "@/modules/shared/components/atoms/NavSearch/NavSearch";
-import NavLogo from "@/modules/shared/components/atoms/logo/NavLogo";
+import NavLogo from "@/modules/shared/components/atoms/logo/Logo";
 import NotificationIcon from "@/modules/shared/components/atoms/NotificationIcon/NotificationIcon";
 import VerticalDivider from "@/modules/shared/components/atoms/Divider/VerticalDivider/VerticalDivider";
 import CircleAvatar from "@/modules/shared/components/atoms/Avatar/circleAvatar";

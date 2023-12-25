@@ -1,8 +1,15 @@
 import Link from "next/link";
 import Box from "../Box/Box";
 import Image from "next/image";
+import classNames from "classnames";
 
-const NavLogo = () => {
+interface LogoType {
+  classes?: string;
+}
+const Logo = ({ classes }: LogoType) => {
+  const logoClasses = classNames("w-24 h-12 md:w-36 md:h-16 cursor-pointer", {
+    [`${classes}`]: classes,
+  });
   return (
     <Box>
       <Link href="/">
@@ -11,11 +18,11 @@ const NavLogo = () => {
           width={150}
           height={50}
           alt="logo"
-          className="w-24 h-12 md:w-36 md:h-16 cursor-pointer"
+          className={logoClasses}
         />
       </Link>
     </Box>
   );
 };
 
-export default NavLogo;
+export default Logo;
