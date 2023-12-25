@@ -32,7 +32,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({
         <h2 className="text-lg font-Nunito font-bold">{name}</h2>
         <p className="text-sm text-gray-600 mb-4 font-Nunito">{description}</p>
       </div>
-      <div className="flex items-center justify-between w-full my-3">
+      <div className="flex items-center gap-4 w-full my-3">
         {metrics.map((metric, index) => (
           <AudienceMetric key={index} {...metric} />
         ))}

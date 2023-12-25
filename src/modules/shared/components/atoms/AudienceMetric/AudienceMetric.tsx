@@ -12,7 +12,7 @@ const AudienceMetric: React.FC<AudienceMetricProps> = ({
   name,
 }) => {
   return (
-    <div className="flex items-center bg-[#fdf5e9] p-2 rounded-xl font-Nunito">
+    <div className="flex items-center bg-[#fdf5e9] p-2 rounded-xl font-Nunito min-w-28">
       <img src={icon} alt={name} className="w-6 h-6 mr-2" />
       <div>
         <p className="font-bold text-sm">{count}</p>
