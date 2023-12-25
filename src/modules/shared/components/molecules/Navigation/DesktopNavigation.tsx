@@ -20,14 +20,12 @@ const Navigation = ({
 }: DesktopNavigationProps) => {
   console.log("openDropdown", openDropdown);
   return (
-    <nav className="relative  w-full bg-white text-black p-1 pb-0">
+    <nav className="relative  w-full bg-white text-black p-1 pb-0 md:px-0 px-4">
       <div className="container mx-auto px-0 md:px-4 flex items-center justify-between">
         {/* Left Navbar */}
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
           <ReactSVG
-            src={
-              openDropdown === "menu" ? "/icons/close.svg" : "/icons/menu.svg"
-            }
+            src="/icons/menu.svg"
             className="md:hidden  cursor-pointer"
             onClick={() =>
               handleDropdownClick(openDropdown === "menu" ? null : "menu")

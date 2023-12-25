@@ -11,6 +11,7 @@ const NavLogo = () => {
           width={150}
           height={50}
           alt="logo"
+          className="w-24 h-12 md:w-36 md:h-16 cursor-pointer"
         />
       </Link>
     </Box>

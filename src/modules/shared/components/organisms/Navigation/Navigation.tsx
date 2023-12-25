@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DesktopNavigation from "@/modules/shared/components/molecules/DesktopNavigation";
-import MobileNavigation from "@/modules/shared/components/molecules/MobileNavigation";
+import DesktopNavigation from "@/modules/shared/components/molecules/Navigation/DesktopNavigation";
+import MobileNavigation from "@/modules/shared/components/molecules/Navigation/MobileNavigation";
 
 const Navigation = () => {
   // control priority which dropdown menu to show [menu Header, notification, profile]
