@@ -22,7 +22,10 @@ const SideBar = () => {
         description="I am Hala Ahmed, I am the owner of the local brand called Beauty which is for Mackeup and Skin Care."
         metrics={metricsData}
       />
-      <QRCodeCard />
+      <QRCodeCard
+        name="Hala Ahmed"
+        qrValue="https://www.youtube.com/watch?v=7XUibDY0t9o"
+      />
     </>
   );
 };
