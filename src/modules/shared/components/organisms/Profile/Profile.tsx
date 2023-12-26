@@ -3,7 +3,7 @@ import ProductList from "@/modules/shared/components/organisms/ProductList/Produ
 
 const Profile = () => {
   return (
-    <div className="container mx-auto px-4 grid grid-cols-12 gap-4 mt-12">
+    <div className="container mx-auto px-4 grid grid-cols-12 gap-4 mt-6 md:mt-12">
       <SideBar />
       <ProductList />
     </div>

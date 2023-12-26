@@ -19,28 +19,35 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="flex items-start justify-between">
       <ProductLabeledImage image={product.image} label={product?.label} />
-
       <div className="flex-1 ml-4">
-        <h2 className="text-lg font-Nunito font-normal">{product.title}</h2>
-        <p className="text-base text-gray-500">
+        <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-Nunito font-normal">
+          {product.title}
+        </h2>
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-500">
           starting price
-          <span className="text-black font-bold text-xl ml-3">
+          <span className="text-black font-bold text-sm sm:text-base md:text-lg lg:text-xl ml-3">
             {product.price}
           </span>
         </p>
-        <div className="flex items-center gap-2 mt-3">
-          <span className="text-gray-500 text-sm">Lot starts in</span>
-          {(["days", "hours", "minutes"] as TimingMetricKey[]).map((metric) => (
-            <TimingMetric
-              key={metric}
-              count={product[metric]}
-              metric={metric}
-            />
-          ))}
+        <div className="sm:flex items-center gap-2 mt-3">
+          <span className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-500">
+            Lot starts in
+          </span>
+          <div className="flex items-center gap-2">
+            {(["days", "hours", "minutes"] as TimingMetricKey[]).map(
+              (metric) => (
+                <TimingMetric
+                  key={metric}
+                  count={product[metric]}
+                  metric={metric}
+                />
+              )
+            )}
+          </div>
         </div>
       </div>
 
-      <button className="text-red-500">
+      <button className="text-red-500 hidden lg:block">
         <svg
           className="w-6 h-6"
           fill="none"

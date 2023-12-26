@@ -16,7 +16,13 @@ const NavLink = ({
 }: NavLinkProps & { isActive: boolean }) => (
   <li className="px-3 py-4 pb-0">
     <Link href={href}>
-      <div className="pb-2">{name}</div>
+      <div
+        className={`font-Nunito font-bold md:text-sm sm:text-xs  lg:text-lg pb-2 ${
+          isActive ? "text-[#D20653]" : "text-[#828282]"
+        }`}
+      >
+        {name}
+      </div>
       <div
         className={`md:block w-1/6 md:w-full h-1 mt-2 ${
           isActive ? "bg-red-500 rounded-tl rounded-tr" : "bg-transparent"

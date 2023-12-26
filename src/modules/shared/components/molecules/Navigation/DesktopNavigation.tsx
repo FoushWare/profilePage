@@ -19,7 +19,7 @@ const Navigation = ({
   handleDropdownClick,
 }: DesktopNavigationProps) => {
   return (
-    <nav className="relative  w-full bg-white text-black p-1 pb-0 md:px-0 px-4">
+    <nav className="relative  w-full bg-white text-black p-1 pb-0 md:px-0 px-4 py-2">
       <div className="container mx-auto px-0 md:px-4 flex items-center justify-between">
         {/* Left Navbar */}
         <div className="flex items-center gap-2">
@@ -35,7 +35,7 @@ const Navigation = ({
           <NavLinks classes="hidden md:flex" />
         </div>
         {/* Right Navbar */}
-        <div className="flex items-center gap-5 md:gap-0">
+        <div className="flex items-center gap-5 md:gap-2">
           <NavSearch />
           <VerticalDivider classes="hidden md:block" />
           <NotificationIcon
@@ -51,7 +51,7 @@ const Navigation = ({
           <ActionButton
             text="Add New Product"
             Icon="/icons/add-circle.svg"
-            classes="hidden md:flex"
+            classes="hidden lg:flex"
           />
           <LanguageSwitcher classes="hidden md:block" />
         </div>

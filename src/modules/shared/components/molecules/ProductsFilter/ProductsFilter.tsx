@@ -23,7 +23,11 @@ const ProductsFilter: React.FC = () => {
           </span>
         ))}
       </div>
-      <ActionButton text="Add Review" Icon="/icons/add-circle.svg" />
+      <ActionButton
+        text="Add Review"
+        Icon="/icons/add-circle.svg"
+        classes="hidden lg:flex"
+      />
     </div>
   );
 };
