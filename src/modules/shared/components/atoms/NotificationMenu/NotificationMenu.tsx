@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 import { NotificationIconProps } from "./types";
 
-const NotificationIcon = ({
+const NotificationMenu = ({
   handleDropdownClick,
   openDropdown,
 }: NotificationIconProps) => {
@@ -23,6 +23,7 @@ const NotificationIcon = ({
       <ReactSVG
         src="/icons/notification.svg"
         className="hover:cursor-pointer"
+        data-testid="notification-icon"
         onClick={toggleDropdown}
       />
       {openDropdown === "notification" && (
@@ -31,6 +32,7 @@ const NotificationIcon = ({
             <div
               key={notification.id}
               className="px-4 py-3 text-sm leading-5 hover:bg-gray-100 hover:cursor-pointer"
+              data-testid="notification-message"
             >
               {notification.text}
             </div>
@@ -41,4 +43,4 @@ const NotificationIcon = ({
   );
 };
 
-export default NotificationIcon;
+export default NotificationMenu;

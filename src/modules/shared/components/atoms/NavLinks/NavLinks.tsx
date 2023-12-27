@@ -42,6 +42,7 @@ const NavLinks = ({ classes }: { classes?: string }) => {
     <ul className={`md:flex ml-6 md:space-x-4 ${classes}`}>
       {navlinks.map((link) => (
         <NavLink
+          data-testid={link.name}
           key={link.name}
           {...link}
           isActive={link.href === activeLink}

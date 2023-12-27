@@ -9,8 +9,9 @@ const CircleAvatar = ({
   openDropdown,
 }: ICircleAvatar.IProps) => {
   const toggleDropdown = () => {
-    if (handleDropdownClick)
+    if (handleDropdownClick) {
       handleDropdownClick(openDropdown === "profile" ? null : "profile");
+    }
   };
   const CircleAvatarClasses = classNames(classes);
 

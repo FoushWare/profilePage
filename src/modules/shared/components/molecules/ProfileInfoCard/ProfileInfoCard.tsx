@@ -1,4 +1,3 @@
-import React from "react";
 import ActionButton from "../../atoms/Buttons/ActionButton";
 import AudienceMetric from "../../atoms/AudienceMetric/AudienceMetric";
 import { ProfileInfoCardProps } from "./types";

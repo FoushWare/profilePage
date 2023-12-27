@@ -10,7 +10,7 @@ const Logo = ({ classes }: LogoType) => {
   });
   return (
     <Box>
-      <Link href="/">
+      <Link href="/" data-testid="logo">
         <Image
           src="/images/mazaady-logo.svg"
           width={150}

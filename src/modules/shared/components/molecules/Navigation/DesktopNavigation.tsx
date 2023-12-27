@@ -1,7 +1,7 @@
 import NavLinks from "@/modules/shared/components/atoms/NavLinks/NavLinks";
 import NavSearch from "@/modules/shared/components/atoms/NavSearch/NavSearch";
 import NavLogo from "@/modules/shared/components/atoms/logo/Logo";
-import NotificationIcon from "@/modules/shared/components/atoms/NotificationIcon/NotificationIcon";
+import NotificationMenu from "@/modules/shared/components/atoms/NotificationMenu/NotificationMenu";
 import VerticalDivider from "@/modules/shared/components/atoms/Divider/VerticalDivider/VerticalDivider";
 import CircleAvatar from "@/modules/shared/components/atoms/Avatar/circleAvatar";
 import ActionButton from "@/modules/shared/components/atoms/Buttons/ActionButton";
@@ -33,7 +33,7 @@ const Navigation = ({
         <div className="flex items-center gap-5 md:gap-2">
           <NavSearch />
           <VerticalDivider classes="hidden md:block" />
-          <NotificationIcon
+          <NotificationMenu
             handleDropdownClick={handleDropdownClick}
             openDropdown={openDropdown}
           />

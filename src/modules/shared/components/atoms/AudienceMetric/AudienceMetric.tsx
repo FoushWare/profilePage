@@ -13,7 +13,7 @@ const AudienceMetric: React.FC<AudienceMetricProps> = ({
     classes
   );
   return (
-    <div className={AudienceMetricClasses}>
+    <div className={AudienceMetricClasses} data-testid="audience-metric">
       <img src={icon} alt={name} className="w-5 h-5 md:w-6 md:h-6 mr-1" />
       <div>
         <p className="font-bold text-sm">{count}</p>
