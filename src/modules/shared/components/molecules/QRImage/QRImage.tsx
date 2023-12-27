@@ -1,11 +1,7 @@
 import React from "react";
 import QRCode from "qrcode.react"; // You need to install this package
 import Logo from "@/modules/shared/components/atoms/logo/Logo";
-
-type QRImageProps = {
-  name: string;
-  qrValue: string;
-};
+import { QRImageProps } from "./types";
 
 const QRImage: React.FC<QRImageProps> = ({ name, qrValue }) => (
   <div className="mt-4 flex flex-col items-center rounded-3xl bg-gradient-to-r from-red-500 to-orange-500 p-3">

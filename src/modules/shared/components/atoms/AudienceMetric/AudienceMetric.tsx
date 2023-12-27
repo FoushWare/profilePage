@@ -1,12 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-
-type AudienceMetricProps = {
-  icon: string;
-  count: number;
-  name: string;
-  classes?: string;
-};
+import { AudienceMetricProps } from "./types";
 
 const AudienceMetric: React.FC<AudienceMetricProps> = ({
   icon,
@@ -15,7 +9,6 @@ const AudienceMetric: React.FC<AudienceMetricProps> = ({
   classes,
 }) => {
   const AudienceMetricClasses = classNames(
-    // "flex items-center bg-[#fdf5e9]  py-3 px-2 rounded-xl font-Nunito w-[96px] min-[768px]:w-[90px]",
     "flex items-center bg-[#fdf5e9]  py-3 px-2 rounded-xl font-Nunito",
     classes
   );

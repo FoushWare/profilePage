@@ -1,12 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import { ReactSVG } from "react-svg";
-
-interface ActionButtonProps {
-  text: string;
-  Icon?: string;
-  classes?: string;
-}
+import { ActionButtonProps } from "./types";
 
 const ActionButton: React.FC<ActionButtonProps> = ({ text, Icon, classes }) => {
   const buttonClasses = classNames(

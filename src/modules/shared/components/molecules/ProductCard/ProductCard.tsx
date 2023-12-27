@@ -1,19 +1,7 @@
 import React from "react";
 import ProductLabeledImage from "../../atoms/ProductLabledImage/ProductLabledImage";
 import TimingMetric from "../../atoms/TimingMetric/TimingMetric";
-
-interface ProductCardProps {
-  product: {
-    image: string;
-    title: string;
-    price: string;
-    days: string;
-    hours: string;
-    minutes: string;
-    label?: string;
-  };
-}
-type TimingMetricKey = "days" | "hours" | "minutes";
+import { ProductCardProps, TimingMetricKey } from "./types";
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (

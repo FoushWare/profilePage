@@ -1,7 +1,4 @@
-interface TimingMetricProps {
-  count: string;
-  metric: "days" | "hours" | "minutes";
-}
+import { TimingMetricProps } from "./types";
 
 const TimingMetric: React.FC<TimingMetricProps> = ({ count, metric }) => {
   return (

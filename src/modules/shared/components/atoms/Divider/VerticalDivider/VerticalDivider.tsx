@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 
 const VerticalDivider = ({ classes }: { classes?: string }) => {
   const verticalDividerClasses = classNames(

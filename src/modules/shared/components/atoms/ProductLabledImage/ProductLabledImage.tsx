@@ -1,7 +1,4 @@
-interface ProductLabeledImageProps {
-  label?: string;
-  image?: string;
-}
+import { ProductLabeledImageProps } from "./types";
 
 const ProductLabeledImage: React.FC<ProductLabeledImageProps> = ({
   label,

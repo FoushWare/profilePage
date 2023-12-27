@@ -4,13 +4,7 @@ import ActionButton from "@/modules/shared/components/atoms/Buttons/ActionButton
 import Box from "@/modules/shared/components/atoms/Box/Box";
 import LanguageSwitcher from "../../atoms/LanguageSwitcher/LanguageSwitcher";
 import HorizontalDivider from "../../atoms/Divider/HorizontalDivider/HorizontalDivider";
-
-interface MobileNavProps {
-  openDropdown: "menu" | "notification" | "profile" | null;
-  handleDropdownClick: (
-    dropdown: "menu" | "notification" | "profile" | null
-  ) => void;
-}
+import { MobileNavProps } from "./types";
 
 const MobileNav = ({ openDropdown }: MobileNavProps) => {
   if (openDropdown !== "menu") return null;

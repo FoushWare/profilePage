@@ -1,19 +1,7 @@
 import React from "react";
 import ActionButton from "../../atoms/Buttons/ActionButton";
 import AudienceMetric from "../../atoms/AudienceMetric/AudienceMetric";
-
-type AudienceMetrics = {
-  icon: string;
-  count: number;
-  name: string;
-};
-
-type ProfileInfoCardProps = {
-  avatarUrl: string;
-  name: string;
-  description: string;
-  metrics: AudienceMetrics[];
-};
+import { ProfileInfoCardProps } from "./types";
 
 const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({
   avatarUrl,

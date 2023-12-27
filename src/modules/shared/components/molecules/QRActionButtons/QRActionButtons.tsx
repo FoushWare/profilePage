@@ -1,9 +1,5 @@
 import React from "react";
-
-type IconButtonProps = {
-  icon: string;
-  alt: string;
-};
+import { IconButtonProps } from "./types";
 
 const IconButton: React.FC<IconButtonProps> = ({ icon, alt }) => (
   <button>

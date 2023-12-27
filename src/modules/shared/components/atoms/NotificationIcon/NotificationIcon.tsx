@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
-
-interface NotificationIconProps {
-  handleDropdownClick: (
-    dropdown: "menu" | "notification" | "profile" | null
-  ) => void;
-  openDropdown?: "menu" | "notification" | "profile" | null;
-}
+import { NotificationIconProps } from "./types";
 
 const NotificationIcon = ({
   handleDropdownClick,

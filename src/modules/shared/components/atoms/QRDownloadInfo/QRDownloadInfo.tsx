@@ -1,7 +1,4 @@
-type InfoWithIconProps = {
-  icon: string;
-  text: string;
-};
+import { InfoWithIconProps } from "./types";
 
 const InfoWithIcon: React.FC<InfoWithIconProps> = ({ icon, text }) => {
   return (

@@ -3,11 +3,7 @@ import QRDownloadInfo from "../../atoms/QRDownloadInfo/QRDownloadInfo";
 import QRActionButtons from "../QRActionButtons/QRActionButtons";
 import FoldButton from "../../atoms/Buttons/FoldButton/FoldButton";
 import QRImage from "@/modules/shared/components/molecules/QRImage/QRImage";
-
-type QRCodeCardProps = {
-  name: string;
-  qrValue: string;
-};
+import { QRCodeCardProps } from "./types";
 
 const QRCodeCard: React.FC<QRCodeCardProps> = ({ name, qrValue }) => {
   const [isFolded, setIsFolded] = useState(false);

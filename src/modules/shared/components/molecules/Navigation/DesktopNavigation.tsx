@@ -7,13 +7,8 @@ import CircleAvatar from "@/modules/shared/components/atoms/Avatar/circleAvatar"
 import ActionButton from "@/modules/shared/components/atoms/Buttons/ActionButton";
 import LanguageSwitcher from "@/modules/shared/components/atoms/LanguageSwitcher/LanguageSwitcher";
 import { ReactSVG } from "react-svg";
+import { DesktopNavigationProps } from "./types";
 
-interface DesktopNavigationProps {
-  openDropdown: "menu" | "notification" | "profile" | null;
-  handleDropdownClick: (
-    dropdown: "menu" | "notification" | "profile" | null
-  ) => void;
-}
 const Navigation = ({
   openDropdown,
   handleDropdownClick,

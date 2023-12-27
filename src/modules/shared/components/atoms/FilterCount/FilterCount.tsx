@@ -1,9 +1,5 @@
 import React from "react";
-
-interface FilterCountProps {
-  name: string;
-  count: string;
-}
+import { FilterCountProps } from "./types";
 
 const FilterCount: React.FC<FilterCountProps> = ({ name, count }) => {
   return (
