@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-interface Category {
-  id: number;
-  name: string;
-}
-interface Property {
-  id: number;
-  name: string;
-}
-type MockChildProperties = { [index: number]: Property[] };
-type MockOptions = { [index: number]: string[] };
+import { Category, Property } from "./types";
+import {
+  mockChildProperties,
+  mockMainCategories,
+  mockOptions,
+  mockProperties,
+  mockSubCategories,
+} from "./mocks";
 
 // Define the Form component
 function CatorySubCatPage() {
@@ -25,94 +21,6 @@ function CatorySubCatPage() {
   const [selectedChildProperties, setSelectedChildProperties] = useState<{
     [key: number]: string;
   }>({});
-
-  console.log("selectedProperties===>", selectedProperties);
-  const mockMainCategories = [
-    { id: 1, name: "Cars" },
-    { id: 2, name: "Motorcycles" },
-  ];
-
-  const mockSubCategories = {
-    1: [
-      { id: 1, name: "Sedans" },
-      { id: 2, name: "SUVs" },
-      { id: 3, name: "Trucks" },
-    ],
-    2: [
-      { id: 4, name: "Sport" },
-      { id: 5, name: "Cruiser" },
-      { id: 6, name: "Touring" },
-    ],
-  };
-  const mockOptions: MockOptions = {
-    1: ["Red", "Blue", "Green"],
-    2: ["1.0L", "1.5L", "2.0L"],
-    3: ["Brand A", "Brand B", "Brand C"],
-    4: ["Red", "Blue", "Green"],
-    5: ["1.0L", "1.5L", "2.0L"],
-    6: ["Brand A", "Brand B", "Brand C"],
-    7: ["Red", "Blue", "Green"],
-    8: ["1.0L", "1.5L", "2.0L"],
-    9: ["Brand A", "Brand B", "Brand C"],
-    10: ["Red", "Blue", "Green"],
-    11: ["1.0L", "1.5L", "2.0L"],
-    12: ["Brand A", "Brand B", "Brand C"],
-    13: ["Red", "Blue", "Green"],
-    14: ["1.0L", "1.5L", "2.0L"],
-    15: ["Brand A", "Brand B", "Brand C"],
-    16: ["Red", "Blue", "Green"],
-    17: ["1.0L", "1.5L", "2.0L"],
-    18: ["Brand A", "Brand B", "Brand C"],
-    19: ["Red", "Blue", "Green"],
-    20: ["1.0L", "1.5L", "2.0L"],
-    // Add more options as needed
-  };
-
-  const mockProperties = {
-    1: [
-      { id: 1, name: "Color" },
-      { id: 2, name: "Engine Size" },
-      { id: 3, name: "Brand" },
-    ],
-    2: [
-      { id: 4, name: "Color" },
-      { id: 5, name: "Engine Size" },
-      { id: 6, name: "Brand" },
-    ],
-    3: [
-      { id: 7, name: "Color" },
-      { id: 8, name: "Engine Size" },
-      { id: 9, name: "Brand" },
-    ],
-    4: [
-      { id: 10, name: "Color" },
-      { id: 11, name: "Engine Size" },
-      { id: 12, name: "Brand" },
-    ],
-    5: [
-      { id: 13, name: "Color" },
-      { id: 14, name: "Engine Size" },
-      { id: 15, name: "Brand" },
-    ],
-    6: [
-      { id: 16, name: "Color" },
-      { id: 17, name: "Engine Size" },
-      { id: 18, name: "Brand" },
-    ],
-  };
-  const mockChildProperties: MockChildProperties = {
-    1: [
-      { id: 1, name: "Color" },
-      { id: 2, name: "Engine Size" },
-      { id: 3, name: "Brand" },
-    ],
-    2: [
-      { id: 4, name: "Color" },
-      { id: 5, name: "Engine Size" },
-      { id: 6, name: "Brand" },
-    ],
-    // Add more child properties as needed
-  };
 
   useEffect(() => {
     setMainCategories(mockMainCategories);
@@ -130,17 +38,39 @@ function CatorySubCatPage() {
     }
   }, [selectedSubCategory]);
 
+  const [otherValues, setOtherValues] = useState<{
+    [key: string]: string;
+  }>({});
   useEffect(() => {
     const selectedPropertyId = Number(Object.keys(selectedProperties)[0]);
     if (selectedPropertyId) {
       setChildProperties(mockChildProperties[selectedPropertyId] || []);
     }
   }, [selectedProperties]);
+  const handleSelectChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    propertyId: number
+  ) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === "Other") {
+      setSubmittedValues((prevValues) => ({
+        ...prevValues,
+        [propertyId]: otherValues[propertyId],
+      }));
+    } else {
+      setSubmittedValues((prevValues) => ({
+        ...prevValues,
+        [propertyId]: selectedValue,
+      }));
+    }
+  };
 
   // Define a handler for the main category change event
   const handleMainCategoryChange = (event: any) => {
     setSelectedMainCategory(event.target.value);
   };
+  console.log("otherValues", otherValues);
 
   // Define a handler for the subcategory change event
   const handleSubCategoryChange = (event: any) => {
@@ -149,16 +79,9 @@ function CatorySubCatPage() {
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string;
   }>({});
-  // const handleInputChange = (id, event) => {
-  //   setSelectedOptions({
-  //     ...selectedOptions,
-  //     [String(id)]: event.target.value,
-  //   });
-  // };
   const handlePropertyChange = (event: any) => {
     const propertyId = event.target.id;
     const selectedValue = event.target.value;
-
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
       [propertyId]: selectedValue,
@@ -166,95 +89,163 @@ function CatorySubCatPage() {
   };
 
   // TODO: Implement the rest of the form logic
-
+  const [submittedValues, setSubmittedValues] = useState({});
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    setSubmittedValues(selectedOptions);
+  };
   // Render the form
   return (
-    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      {/* category */}
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="main-category"
-        >
-          Main Category
-        </label>
-        <select
-          id="main-category"
-          onChange={handleMainCategoryChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        >
-          {mainCategories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      {/* subCategory */}
-      <div className="mb-6">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="sub-category"
-        >
-          Sub Category
-        </label>
-        <select
-          id="sub-category"
-          onChange={handleSubCategoryChange}
-          disabled={!selectedMainCategory}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        >
-          {subCategories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* properties */}
-      {properties.map((property) => (
-        <div className="mb-6" key={property.id}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-12 gap-4 mt-4">
+      {" "}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 col-span-6"
+      >
+        {/* category */}
+        <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor={property.id.toString()}
+            htmlFor="main-category"
           >
-            {property.name}
+            Main Category
           </label>
           <select
-            id={property.id.toString()}
-            onChange={handlePropertyChange}
-            disabled={!selectedSubCategory}
+            id="main-category"
+            onChange={handleMainCategoryChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
-            {mockOptions[property.id].map((option) => (
-              <option key={option} value={option}>
-                {option}
+            <option value="">--Select Main Category</option>
+            {mainCategories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
               </option>
             ))}
-            <option value="other">Other</option>
           </select>
-          {selectedOptions[String(property.id)] === "other" && (
-            <input
-              type="text"
-              placeholder="Enter a value"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
-            />
-          )}
         </div>
-      ))}
+        {/* subCategory */}
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="sub-category"
+          >
+            Sub Category
+          </label>
+          <select
+            id="sub-category"
+            onChange={handleSubCategoryChange}
+            disabled={!selectedMainCategory}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="">--Select Sub Category</option>
+            {subCategories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* child properties */}
-      {/* TODO: Render the property dropdowns and input fields */}
-      <div className="flex items-center justify-between">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          Submit
-        </button>
+        {/* properties */}
+        {properties.map((property) => (
+          <div className="mb-6" key={property.id}>
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor={property.id.toString()}
+            >
+              {property.name}
+            </label>
+            <select
+              id={property.id.toString()}
+              onChange={handlePropertyChange}
+              disabled={!selectedSubCategory}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">{`--Select a ${
+                property.name.split(" ")[0]
+              }`}</option>
+              {mockOptions[property.id].map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+              <option value="other">Other</option>
+            </select>
+            {selectedOptions[String(property.id)] === "other" && (
+              <input
+                type="text"
+                placeholder="Enter a value"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
+                onChange={
+                  (event: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherValues((prevValues) => ({
+                      ...prevValues,
+                      [property.id]: event.target.value,
+                    }));
+                  }
+                  // handleInputChange
+                }
+              />
+            )}
+          </div>
+        ))}
+
+        {/* child properties */}
+        {/* TODO: Render the property dropdowns and input fields */}
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      {/* Table to display the submitted values */}
+      <div className="col-span-6 overflow-x-auto ">
+        <h2 className="text-lg font-bold mb-4">Submitted Values</h2>
+        <table className="w-full min-w-full divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200">
+            <tr>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                Main Category
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {selectedMainCategory !== null
+                  ? mainCategories[selectedMainCategory - 1]?.name
+                  : "N/A"}
+              </td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                Sub Category
+              </td>
+              <td
+                className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                log={console.log("selectedSubCategory", selectedSubCategory)}
+              >
+                {selectedSubCategory !== null
+                  ? subCategories[selectedSubCategory - 1]?.name
+                  : "N/A"}
+              </td>
+            </tr>
+            {Object.entries(submittedValues).map(([key, value], index) => (
+              <tr key={key} log={console.log("index", index)}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {properties.find((property) => property.id === Number(key))
+                    ?.name ?? "N/A"}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {value === "other"
+                    ? otherValues[index + 1]
+                    : (value as string)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </form>
+    </div>
   );
 }
 
