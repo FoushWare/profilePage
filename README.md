@@ -1,40 +1,100 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ProfilePage
 
-## Getting Started
+## Table of contents
 
-First, run the development server:
+1. [Prerequisites](#prerequisites)
+2. [Install and Use](#install-and-use)
+3. [Dependencies](#dependencies)
+4. [Folder Structure](#folder-structure)
+5. [parts fof the project](#parts-of-the-project)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Prerequisites
+
+To use this project you should have the following on your machine:
+
+1. `Node.js`
+2. `yarn`
+
+## Install and Use
+
+To install the project you have to:
+
+1. Clone the repository:
+   `git clone git@github.com:FoushWare/profilePage.git` or the `ssh url`.
+
+2. Install packages:
+   `yarn`
+
+3. Run the project:
+   `yarn dev`
+
+4. Open storybook:
+   `yarn storybook`
+5. Run test runner tests for the storybook components to run the integration tests for the:
+   `yarn test-storybook`
+
+## Dependencies
+
+The project is built `next.js` mainly, `Tailwind` for styling and `Storybook` for component development and testing and documentation.
+
+## Folder Structure
+
+The main folder structure of the code is structured like the following:
+
+```ts
+├── modules
+│   └── shared
+│       ├── api
+│       │   └── example1.api.ts
+│       ├── components
+│       │   └── atoms
+│       │   |  └── NotificationMenu
+|       |   |      ├── NotificationMenu.tsx
+|       |   |      └── types
+|       |   ├── molecules
+|       |   ├── organisms
+|       |   └── icons
+│       ├── logic
+│       └── configuration
+|           └── axiosConfig.ts
+│       └── hooks
+|           └── useDropdown.ts
+|           └── useCategories.ts
+│       └── types
+├── pages
+│   ├── api
+│   ├── _app.js
+│   ├── _document.js
+│   └── index.js
+├── public
+│   └── favicon.ico
+├── README.md
+├── styles
+│   └── globals.css
+├── next.config.js
+├── tailwind.config.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- The structure is modular, this means that the project is encapsulated into modules, each of them will be handling a single page.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- Every module will have a separated folder that contains its own `components`, `api` for api calls, `logic` for business logic of the module, `tests`, `pages` which contains the pages that belongs to the module and `index.js` file which is the entry point of the module.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Also there's the `shared` module which contains the components, api calls and logic that's shared across all the modules e.g: `Layout` component.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# parts of the project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 1. form: contain two searchable dropdown menu
 
-## Learn More
+you can access this part locally by going to the following path: `http://localhost:3000/categorysubcat`
 
-To learn more about Next.js, take a look at the following resources:
+and you can access it on the deployed version by going to the following path: `https://profile-page-woad-pi.vercel.app/categorysubcat`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[CategorySubCategory form Task](https://profile-page-woad-pi.vercel.app/categorysubcat)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 2. profile page: contain the profile page
 
-## Deploy on Vercel
+you can access this part locally by going to the following path: `http://localhost:3000/`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+and you can access it on the deployed version by going to the following path: `https://profile-page-woad-pi.vercel.app/`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Profile Page Task](https://profile-page-woad-pi.vercel.app/)
