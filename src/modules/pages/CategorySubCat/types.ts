@@ -1,6 +1,7 @@
 export interface Category {
   id: number;
   name: string;
+  children: [];
 }
 export interface Property {
   id: number;
@@ -9,5 +10,5 @@ export interface Property {
 export type MockChildProperties = { [index: number]: Property[] };
 export type MockOptions = { [index: number]: string[] };
 export type MockSubCategoriesType = {
-    [key: number]: { id: number; name: string; }[];
-  };
+  [key: number]: { id: number; name: string }[];
+};

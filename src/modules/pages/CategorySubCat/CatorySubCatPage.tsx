@@ -1,76 +1,90 @@
 import React, { useState, useEffect } from "react";
 import { Category, Property } from "./types";
-import {
-  mockChildProperties,
-  mockMainCategories,
-  mockOptions,
-  mockProperties,
-  mockSubCategories,
-} from "./mocks";
+import CategoryRow from "@/modules/shared/components/atoms/CategoryRow/CategoryRow";
+import PropertyRow from "@/modules/shared/components/atoms/PropertyRow/PropertyRow";
+import SubmittedValuesTable from "@/modules/shared/components/molecules/CategoryTable/CategoryTable";
 
-// Define the Form component
 function CatorySubCatPage() {
-  // Define state variables for main categories, subcategories, and the selected main and subcategory
   const [mainCategories, setMainCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<Category[]>([]);
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [properties, setProperties] = useState<Property[]>([]);
-  const [selectedProperties, setSelectedProperties] = useState("");
-  const [childProperties, setChildProperties] = useState<Property[]>([]);
-  const [selectedChildProperties, setSelectedChildProperties] = useState<{
-    [key: number]: string;
-  }>({});
 
+  const privateKey = "3%o8i}_;3D4bF]G5@22r2)Et1&mLJ4?$@+16";
+  // categories
   useEffect(() => {
-    setMainCategories(mockMainCategories);
+    fetch(`https://staging.mazaady.com/api/v1/get_all_cats`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "private-key": "3%o8i}_;3D4bF]G5@22r2)Et1&mLJ4?$@+16",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => setMainCategories(data.data.categories))
+      .catch((error) => console.error("Fetch error:", error));
   }, []);
 
   useEffect(() => {
     if (selectedMainCategory) {
-      setSubCategories(mockSubCategories[selectedMainCategory]);
+      setSubCategories(mainCategories[selectedMainCategory - 1]?.children);
     }
   }, [selectedMainCategory]);
 
+  // Fetch properties when a sub category is selected
   useEffect(() => {
     if (selectedSubCategory) {
-      setProperties(mockProperties[selectedSubCategory]);
+      fetch(
+        `https://staging.mazaady.com/api/v1/properties?cat=${selectedSubCategory}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "private-key": privateKey,
+          },
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => setProperties(data.data))
+        .catch((error) => console.error("Fetch error:", error));
     }
   }, [selectedSubCategory]);
 
   const [otherValues, setOtherValues] = useState<{
     [key: string]: string;
   }>({});
-  useEffect(() => {
-    const selectedPropertyId = Number(Object.keys(selectedProperties)[0]);
-    if (selectedPropertyId) {
-      setChildProperties(mockChildProperties[selectedPropertyId] || []);
-    }
-  }, [selectedProperties]);
+
   const handleSelectChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     propertyId: number
   ) => {
     const selectedValue = event.target.value;
+    const selectedOptionName = properties
+      .find((property) => property.id === propertyId)
+      // @ts-ignore
+      ?.options?.find((option) => option.id === Number(selectedValue))?.name;
 
-    if (selectedValue === "Other") {
-      setSubmittedValues((prevValues) => ({
-        ...prevValues,
-        [propertyId]: otherValues[propertyId],
-      }));
-    } else {
-      setSubmittedValues((prevValues) => ({
-        ...prevValues,
-        [propertyId]: selectedValue,
-      }));
-    }
+    setSubmittedValues((prevValues) => ({
+      ...prevValues,
+      [propertyId]: selectedOptionName,
+    }));
   };
 
   // Define a handler for the main category change event
   const handleMainCategoryChange = (event: any) => {
     setSelectedMainCategory(event.target.value);
   };
-  console.log("otherValues", otherValues);
 
   // Define a handler for the subcategory change event
   const handleSubCategoryChange = (event: any) => {
@@ -92,7 +106,6 @@ function CatorySubCatPage() {
   const [submittedValues, setSubmittedValues] = useState({});
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    setSubmittedValues(selectedOptions);
   };
   // Render the form
   return (
@@ -157,18 +170,23 @@ function CatorySubCatPage() {
             </label>
             <select
               id={property.id.toString()}
-              onChange={handlePropertyChange}
+              onChange={(e) => {
+                handlePropertyChange(e);
+                handleSelectChange(e, property.id);
+              }}
               disabled={!selectedSubCategory}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="">{`--Select a ${
                 property.name.split(" ")[0]
               }`}</option>
-              {mockOptions[property.id].map((option) => (
-                <option key={option} value={option}>
-                  {option}
+              {/* @ts-ignore */}
+              {property.options?.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.name}
                 </option>
               ))}
+
               <option value="other">Other</option>
             </select>
             {selectedOptions[String(property.id)] === "other" && (
@@ -176,22 +194,21 @@ function CatorySubCatPage() {
                 type="text"
                 placeholder="Enter a value"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
-                onChange={
-                  (event: React.ChangeEvent<HTMLInputElement>) => {
-                    setOtherValues((prevValues) => ({
-                      ...prevValues,
-                      [property.id]: event.target.value,
-                    }));
-                  }
-                  // handleInputChange
-                }
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setOtherValues((prevValues) => ({
+                    ...prevValues,
+                    [property.id]: event.target.value,
+                  }));
+                  setSubmittedValues((prevValues) => ({
+                    ...prevValues,
+                    [property.id]: event.target.value,
+                  }));
+                }}
               />
             )}
           </div>
         ))}
 
-        {/* child properties */}
-        {/* TODO: Render the property dropdowns and input fields */}
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -202,49 +219,15 @@ function CatorySubCatPage() {
         </div>
       </form>
       {/* Table to display the submitted values */}
-      <div className="col-span-6 overflow-x-auto ">
-        <h2 className="text-lg font-bold mb-4">Submitted Values</h2>
-        <table className="w-full min-w-full divide-y divide-gray-200">
-          <tbody className="bg-white divide-y divide-gray-200">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                Main Category
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {selectedMainCategory !== null
-                  ? mainCategories[selectedMainCategory - 1]?.name
-                  : "N/A"}
-              </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                Sub Category
-              </td>
-              <td
-                className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                log={console.log("selectedSubCategory", selectedSubCategory)}
-              >
-                {selectedSubCategory !== null
-                  ? subCategories[selectedSubCategory - 1]?.name
-                  : "N/A"}
-              </td>
-            </tr>
-            {Object.entries(submittedValues).map(([key, value], index) => (
-              <tr key={key} log={console.log("index", index)}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {properties.find((property) => property.id === Number(key))
-                    ?.name ?? "N/A"}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {value === "other"
-                    ? otherValues[index + 1]
-                    : (value as string)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SubmittedValuesTable
+        selectedMainCategory={selectedMainCategory}
+        selectedSubCategory={selectedSubCategory}
+        mainCategories={mainCategories}
+        subCategories={subCategories}
+        submittedValues={submittedValues}
+        properties={properties}
+        otherValues={otherValues}
+      />
     </div>
   );
 }
