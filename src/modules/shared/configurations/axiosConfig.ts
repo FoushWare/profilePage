@@ -1,13 +1,12 @@
 import axios from "axios";
 
-// create axios instance
-const PrivateKey = process.env.NEXT_PUBLIC__APP_PRIVATE_KEY;
+const baseURL = "https://staging.mazaady.com/api/v1/";
+
 const axiosInstance = axios.create({
-  baseURL: "https://staging.mazaady.com/api/v1/",
-  timeout: 1000,
+  baseURL,
   headers: {
     "Content-Type": "application/json",
-    "private-key": PrivateKey,
+    "private-key": process.env.NEXT_PUBLIC_API_URL,
   },
 });
 
